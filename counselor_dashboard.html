@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Counselor Dashboard</title>
+</head>
+<body>
+<h2>Welcome Counselor: {{ email }}</h2>
+
+{% for class_name, sections in all_students.items() %}
+    <h3>Class: {{ class_name }}</h3>
+    {% for section_name, students in sections.items() %}
+        <h4>Section: {{ section_name }}</h4>
+        <table border="1">
+            <tr>
+                <th>Name</th>
+                <th>Special Needs</th>
+                <th>Progress</th>
+                <th>Accommodations</th>
+                <th>Notes</th>
+            </tr>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.name }}</td>
+                <td>{{ student.special_needs }}</td>
+                <td>{{ student.progress }}</td>
+                <td>{{ student.accommodations }}</td>
+                <td>{{ student.notes }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endfor %}
+{% endfor %}
+</body>
+</html>
