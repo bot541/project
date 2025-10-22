@@ -131,18 +131,12 @@ def counselor_dashboard():
     if session.get("role") != "counselor":
         flash("Not authorized for counselor dashboard", "danger")
         return redirect(url_for("dashboard"))
-    classes = db.reference("Classes").get() or {}
-    entries = []
-    for cls_name, sections in (classes.items() if isinstance(classes, dict) else []):
-        for sec_name, students in (sections.items() if isinstance(sections, dict) else []):
-            for key, data in students.items():
-                entries.append({
-                    "class": cls_name,
-                    "section": sec_name,
-                    "key": key,
-                    "data": data
-                })
-    return render_template("counselor_dashboard.html", entries=entries)
+
+    # Fetch all classes from Firebase
+    ref = db.reference("Classes")
+    all_students = ref.get() or {}  # now it's a nested dict: Class -> Section -> Students
+
+    return render_template("counselor_dashboard.html", all_students=all_students)
 
 # --- Add/Edit Students ------------------------------------------------------
 @app.route("/add_student", methods=["GET", "POST"])
