@@ -2,6 +2,10 @@
 <html>
 <head>
     <title>Register User</title>
+    <style>
+        .success { color: green; }
+        .danger { color: red; }
+    </style>
 </head>
 <body>
 <h2>Register New User</h2>
@@ -10,7 +14,7 @@
   {% if messages %}
     <ul>
       {% for category, message in messages %}
-        <li style="color: {% if category=='success' %}green{% else %}red{% endif %}">{{ message }}</li>
+        <li class="{{ category }}">{{ message }}</li>
       {% endfor %}
     </ul>
   {% endif %}
